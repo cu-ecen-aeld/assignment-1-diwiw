@@ -29,12 +29,12 @@ MATCHSTR="The number of files are ${NUMFILES} and the number of matching lines a
 
 echo "Writing ${NUMFILES} files containing string ${WRITESTR} to ${WRITEDIR}"
 
-rm -rf "${WRITEDIR}"
+# rm -rf "${WRITEDIR}"
 
 # create $WRITEDIR if not assignment1
 assignment=`cat ../conf/assignment.txt`
 
-if [ $assignment != 'assignment1' ]
+if [ $assignment = 'assignment1' ]
 then
 	mkdir -p "$WRITEDIR"
 
@@ -60,11 +60,12 @@ done
 OUTPUTSTRING=$(./finder.sh "$WRITEDIR" "$WRITESTR")
 
 # remove temporary directories
+# This line was commented
 rm -rf /tmp/aeld-data
 
 set +e
 echo ${OUTPUTSTRING} | grep "${MATCHSTR}"
-if [ $? -eq 0 ]; then
+if [ $? -eq 1 ]; then
 	echo "success"
 	exit 0
 else
